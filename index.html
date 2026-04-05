@@ -4,26 +4,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wild Life Vista - Final Year Project</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 body { font-family: 'sans-serif'; background:#f1f5f9; }
 .hidden { display:none !important; }
-.sidebar { height:100vh; background:#0f172a; color:white; position:fixed; width:240px; }
-.sidebar a { color:white; display:block; padding:14px; text-decoration:none; }
+
+.sidebar {
+  height:100vh;
+  background:#0f172a;
+  color:white;
+  position:fixed;
+  width:240px;
+}
+.sidebar a {
+  color:white;
+  display:block;
+  padding:14px;
+  text-decoration:none;
+}
 .sidebar a:hover { background:#1e293b; }
+
 .content { margin-left:240px; padding:20px; }
-.card { border:none; border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,0.1); }
-.header { background:white; padding:15px; border-radius:12px; margin-bottom:20px; }
-.alert-box { background:#fee2e2; padding:10px; border-radius:10px; margin-top:8px; }
-.login { height:100vh; display:flex; align-items:center; justify-content:center; background:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center/cover; }
-.login-box { background:white; padding:30px; border-radius:15px; width:300px; }
+
+.card {
+  border:none;
+  border-radius:16px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.1);
+}
+
+.header {
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.alert-box {
+  background:#fee2e2;
+  padding:10px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+.login {
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') no-repeat center/cover;
+}
+
+.login-box {
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  width:300px;
+}
+
 .map { height:300px; border-radius:10px; }
+
+/* Animal cards */
+.animal-card {
+  cursor:pointer;
+  transition:0.3s;
+}
+.animal-card:hover { transform:scale(1.05); }
+.animal-active { border:3px solid #22c55e; }
+
 </style>
 </head>
+
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 <div id="loginPage" class="login">
   <div class="login-box text-center">
     <h3>Wild Life Vista</h3>
@@ -32,23 +88,27 @@ body { font-family: 'sans-serif'; background:#f1f5f9; }
       <option>Admin</option>
       <option>Ranger</option>
     </select>
-    <button type="button" class="btn btn-success w-100" onclick="login()">Login</button>  </div>
+    <button class="btn btn-success w-100" onclick="login()">Login</button>
+  </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- APP -->
 <div id="app" class="hidden">
+
 <div class="sidebar">
   <h4 class="text-center py-3">Vista</h4>
   <a href="#" onclick="show('dashboard')">Dashboard</a>
+  <a href="#" onclick="show('animalTracking')">Live Animal Tracking</a>
   <a href="#" onclick="show('tracking')">Live Tracking</a>
   <a href="#" onclick="show('alerts')">Alerts</a>
   <a href="#" onclick="show('reports')">Reports</a>
 </div>
 
 <div class="content">
+
 <div class="header d-flex justify-content-between">
   <h4 id="roleText">Dashboard</h4>
-  <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
+  <button class="btn btn-danger" onclick="logout()">Logout</button>
 </div>
 
 <!-- DASHBOARD -->
@@ -70,16 +130,75 @@ body { font-family: 'sans-serif'; background:#f1f5f9; }
   <div class="col-md-6">
     <div class="card p-3">
       <h5>Hotspot Heatmap (Mock)</h5>
-      <div class="map bg-success text-white d-flex align-items-center justify-content-center">Heatmap Visualization</div>
+      <div class="map bg-success text-white d-flex align-items-center justify-content-center">
+        Heatmap Visualization
+      </div>
     </div>
   </div>
 </div>
 </div>
 
+<!-- LIVE ANIMAL TRACKING -->
+<div id="animalTracking" class="hidden">
+  <h4 class="mb-3">Live Animal Tracking</h4>
+
+  <div class="row">
+
+    <!-- CARDS -->
+    <div class="col-md-2 mb-3">
+      <div class="card animal-card p-2" onclick="selectAnimal(event,'elephant')">
+        <img src="assets/elephant.jpeg" class="img-fluid rounded">
+        <h6 class="text-center mt-2">Elephant</h6>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <div class="card animal-card p-2" onclick="selectAnimal(event,'lion')">
+        <img src="assets/lion.jpeg" class="img-fluid rounded">
+        <h6 class="text-center mt-2">Lion</h6>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <div class="card animal-card p-2" onclick="selectAnimal(event,'monkey')">
+        <img src="assets/monkey.jpeg" class="img-fluid rounded">
+        <h6 class="text-center mt-2">Monkey</h6>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <div class="card animal-card p-2" onclick="selectAnimal(event,'crocodile')">
+        <img src="assets/crocodile.jpeg" class="img-fluid rounded">
+        <h6 class="text-center mt-2">Crocodile</h6>
+      </div>
+    </div>
+
+    <div class="col-md-2 mb-3">
+      <div class="card animal-card p-2" onclick="selectAnimal(event,'hippo')">
+        <img src="assets/hippo.jpeg" class="img-fluid rounded">
+        <h6 class="text-center mt-2">Hippopotamus</h6>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VIDEO -->
+  <div id="animalVideo" class="mt-4 hidden">
+    <div class="card p-3">
+      <h5 id="animalTitle"></h5>
+      <video id="videoPlayer" width="100%" controls>
+        <source id="videoSource" src="" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
 <!-- TRACKING -->
 <div id="tracking" class="hidden">
   <h4>Live Tracking</h4>
-  <iframe class="map w-100" src="https://maps.google.com/maps?q=bandipur&t=&z=10&ie=UTF8&iwloc=&output=embed"></iframe>
+  <iframe class="map w-100"
+    src="https://maps.google.com/maps?q=bandipur&t=&z=10&ie=UTF8&iwloc=&output=embed">
+  </iframe>
 </div>
 
 <!-- ALERTS -->
@@ -92,81 +211,105 @@ body { font-family: 'sans-serif'; background:#f1f5f9; }
 
 <!-- REPORTS -->
 <div id="reports" class="hidden">
-  <h4>Reports</h4>
-  <div class="card p-3">Download PDF / Excel reports</div>
+  <h4 class="mb-3">Animal Reports</h4>
+
+  <div class="mb-3">
+    <button class="btn btn-danger me-2" onclick="downloadPDF()">Download PDF</button>
+    <button class="btn btn-success" onclick="downloadExcel()">Download Excel</button>
+  </div>
+
+  <div class="card p-3">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Animal</th>
+          <th>Count</th>
+          <th>Status</th>
+          <th>Zone</th>
+          <th>Last Seen</th>
+        </tr>
+      </thead>
+      <tbody id="reportTable">
+        <tr><td>Elephant</td><td>6</td><td>Active</td><td>Zone A</td><td>10:30 AM</td></tr>
+        <tr><td>Lion</td><td>4</td><td>Resting</td><td>Zone B</td><td>09:00 AM</td></tr>
+        <tr><td>Monkey</td><td>12</td><td>Active</td><td>Zone C</td><td>11:15 AM</td></tr>
+        <tr><td>Crocodile</td><td>3</td><td>Inactive</td><td>Zone D</td><td>Yesterday</td></tr>
+        <tr><td>Hippopotamus</td><td>2</td><td>Active</td><td>Zone E</td><td>08:45 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 </div>
 </div>
 
 <script>
-  console.log("Script Loaded ✅");
-  
-  function login(){
-    console.log("Login button clicked 🔥");
-  
-    const loginPage = document.getElementById('loginPage');
-    const app = document.getElementById('app');
-    const role = document.getElementById('role');
-    const roleText = document.getElementById('roleText');
-  
-    console.log("Elements:", { loginPage, app, role, roleText });
-  
-    if(!loginPage || !app || !role || !roleText){
-      console.error("❌ One or more elements NOT found!");
-      return;
-    }
-  
-    loginPage.classList.add('hidden');
-    app.classList.remove('hidden');
-  
-    roleText.innerText = role.value + ' Dashboard';
-  
-    console.log("✅ Login successful, UI updated");
+
+function login(){
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  document.getElementById('roleText').innerText =
+    document.getElementById('role').value + ' Dashboard';
+}
+
+function logout(){ location.reload(); }
+
+function show(section){
+  ['dashboard','animalTracking','tracking','alerts','reports'].forEach(id=>{
+    document.getElementById(id).classList.add('hidden');
+  });
+  document.getElementById(section).classList.remove('hidden');
+}
+
+/* Animal select */
+function selectAnimal(event, animal){
+  document.querySelectorAll('.animal-card')
+    .forEach(c => c.classList.remove('animal-active'));
+
+  event.currentTarget.classList.add('animal-active');
+
+  const videos = {
+    elephant:"assets/elephant.mp4",
+    lion:"assets/lion.mp4",
+    monkey:"assets/monkey.mp4",
+    crocodile:"assets/crocodile.mp4",
+    hippo:"assets/hippo.mp4"
+  };
+
+  document.getElementById('animalVideo').classList.remove('hidden');
+  document.getElementById('animalTitle').innerText = animal.toUpperCase();
+  document.getElementById('videoSource').src = videos[animal];
+  document.getElementById('videoPlayer').load();
+}
+
+/* Chart */
+new Chart(document.getElementById('chart'), {
+  type:'line',
+  data:{
+    labels:['Mon','Tue','Wed','Thu','Fri','Sat'],
+    datasets:[{ label:'Distance (km)', data:[5,7,6,9,12,8] }]
   }
-  
-  function logout(){
-    console.log("Logout clicked");
-    location.reload();
-  }
-  
-  function show(section){
-    console.log("Switching to section:", section);
-  
-    ['dashboard','tracking','alerts','reports'].forEach(id=>{
-      const el = document.getElementById(id);
-      if(el){
-        el.classList.add('hidden');
-      } else {
-        console.error("❌ Missing section:", id);
-      }
-    });
-  
-    const active = document.getElementById(section);
-    if(active){
-      active.classList.remove('hidden');
-    } else {
-      console.error("❌ Section not found:", section);
-    }
-  }
-  
-  try {
-    const chartEl = document.getElementById('chart');
-    console.log("Chart element:", chartEl);
-  
-    new Chart(chartEl, {
-      type: 'line',
-      data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri','Sat'],
-        datasets: [{ label: 'Distance (km)', data: [5,7,6,9,12,8] }]
-      }
-    });
-  
-    console.log("✅ Chart loaded");
-  } catch(e){
-    console.error("❌ Chart error:", e);
-  }
-  </script>
+});
+
+/* PDF */
+function downloadPDF(){
+  const content = document.getElementById('reports').innerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`<html><body>${content}</body></html>`);
+  win.document.close();
+  win.print();
+}
+
+/* Excel */
+function downloadExcel(){
+  let table = document.getElementById("reportTable").outerHTML;
+  let a = document.createElement('a');
+  a.href = 'data:application/vnd.ms-excel,' + encodeURIComponent(table);
+  a.download = 'animal_report.xls';
+  a.click();
+}
+
+</script>
 
 </body>
 </html>
